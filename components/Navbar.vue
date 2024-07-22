@@ -25,7 +25,7 @@ const navigationButtons = [
       v-for="button in navigationButtons"
       :text="button"
       type="link"
-      class="hidden font-bold lg:flex"
+      class="hidden font-semibold lg:flex"
     />
 
     <common-button :icon="menuIcon" type="link" class="lg:hidden" />
