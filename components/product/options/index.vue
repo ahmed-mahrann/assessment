@@ -1,9 +1,9 @@
 <template>
   <div class="flex w-[40vw] flex-col gap-5">
-    <div class="border-b pb-5">
-      <h1>{{ product?.title }}</h1>
+    <div class="flex flex-col gap-2 border-b pb-5">
+      <h1 class="text-xl font-bold">{{ product?.title }}</h1>
       <common-rating :rating="product?.featured" :subtext="true" />
-      <p>{{ product?.price }}</p>
+      <p class="text-xl font-bold">{{ product?.price }}</p>
     </div>
     <div class="flex flex-col gap-4">
       <product-options-color-options

@@ -4,7 +4,7 @@
       <img
         v-for="(_, index) in Math.floor(5 - rating)"
         :key="index"
-        src="@/assets/icons/star-empty.svg"
+        :src="starEmptyIcon"
         class="h-4"
         alt="Star Icon"
       />
@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import starEmptyIcon from "~/assets/icons/star-empty.svg";
+
 defineProps({
   rating: {
     type: Number,
