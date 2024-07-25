@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   modules: ["@pinia/nuxt"],
   css: ["~/assets/css/main.css"],
   ssr: true,
+  runtimeConfig: {
+    public: {
+      api_url: process.env.API_URL,
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
