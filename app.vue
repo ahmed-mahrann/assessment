@@ -5,7 +5,11 @@
 </template>
 
 <script setup lang="ts">
+import { useProductStore } from "~/store/productStore";
 import { register as registerSwiper } from "swiper/element/bundle";
 
+const { fetchProduct } = useProductStore();
+
 registerSwiper();
+await fetchProduct();
 </script>
