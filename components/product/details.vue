@@ -1,19 +1,26 @@
 <template>
   <div class="flex flex-col gap-4">
-    <div class="bg-graySurface flex w-full items-center justify-between p-5">
+    <div
+      class="flex w-full items-center justify-between bg-graySurface p-5 hover:cursor-pointer"
+      @click="expand = !expand"
+    >
       <h2 class="lg:text-[16px] lg:font-bold">Product Details</h2>
-      <button class="text-3xl" @click="expand = !expand">
-        <img
-          :src="expand ? minusIcon : plusIcon"
-          :alt="expand ? 'minus' : 'plus'"
-          class="hover:opacity-70"
-        />
-      </button>
+      <img
+        :src="expand ? minusIcon : plusIcon"
+        :alt="expand ? 'minus' : 'plus'"
+        class="hover:opacity-70"
+      />
     </div>
     <transition name="details">
-      <div v-if="expand" class="px-5 py-8">
-        {{ product?.description }}
-      </div>
+      <div
+        v-if="expand"
+        class="ml-4 px-3 py-4"
+        v-html="
+          product?.details !== ''
+            ? product?.details
+            : `<p class='text-center'>No details available for this product at this time</p>`
+        "
+      />
     </transition>
   </div>
 </template>
@@ -39,13 +46,13 @@ const expand = ref(false);
 
 .details-enter-from,
 .details-leave-to {
-  padding: 0 20px;
+  padding: 0 12px;
   opacity: 0;
 }
 
 .details-enter-to,
 .details-leave-from {
-  padding: 32px 20px;
+  padding: 16px 12px;
   opacity: 1;
 }
 </style>

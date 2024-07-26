@@ -8,7 +8,7 @@
       <common-button
         v-for="option in options.option_values"
         :key="option.id"
-        class="!rounded-full border-2 border-white p-4"
+        class="!rounded-full border-2 border-grayBg p-4"
         :class="{ 'outline outline-2': selectedColor.id === option.id }"
         type="link"
         :style="{ backgroundColor: option.value }"

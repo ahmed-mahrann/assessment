@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-[40vw] flex-col gap-5">
+  <div class="flex flex-col gap-5">
     <div class="flex flex-col gap-2 border-b pb-5">
       <h1 class="text-xl font-bold">{{ product?.title }}</h1>
       <common-rating :rating="product?.featured" :subtext="true" />
@@ -21,15 +21,15 @@
       <product-options-quantity />
     </div>
 
-    <div class="grid h-14 grid-cols-3 gap-4">
+    <div class="grid h-14 grid-cols-2 gap-4 sm:grid-cols-3">
       <common-button
         text="Add to Cart"
-        class="col-span-2 place-content-center"
+        class="col-span-1 place-content-center sm:col-span-2"
       />
       <common-button
         text="Wishlist"
         type="outline"
-        class="col-span-1 place-content-center"
+        class="col-span-1 place-content-center sm:text-sm"
       >
         <img :src="wishlistIcon" alt="wishlist" />
       </common-button>
@@ -41,12 +41,16 @@
     >
       <div class="flex flex-col items-center gap-1">
         <img :src="deliveryIcon" alt="delivery" />
-        <span class="text-xs underline">Shipping terms & conditions</span>
+        <span class="text-center text-xs underline">
+          Shipping terms & conditions
+        </span>
       </div>
       <span class="h-10 border-r border-subtitle/50" />
       <div class="flex flex-col items-center gap-1">
         <img :src="returnBagIcon" alt="returnPolicy" />
-        <span class="text-xs underline">Exchange and Return Policy</span>
+        <span class="text-center text-xs underline">
+          Exchange and Return Policy
+        </span>
       </div>
     </div>
   </div>

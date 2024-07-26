@@ -10,7 +10,7 @@
         :key="option.id"
         :text="option.title"
         type="link"
-        class="flex h-6 w-11 items-center justify-center font-bold"
+        class="flex h-6 w-16 items-center justify-center font-bold"
         :class="{
           'bg-black text-white': selectedOption.id === option.id,
         }"
