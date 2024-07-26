@@ -21,15 +21,15 @@
       <product-options-quantity />
     </div>
 
-    <div class="grid h-14 grid-cols-2 gap-4 sm:grid-cols-3">
+    <div class="flex flex-col gap-4 sm:flex-row">
       <common-button
         text="Add to Cart"
-        class="col-span-1 place-content-center sm:col-span-2"
+        class="flex h-14 items-center justify-center sm:basis-2/3"
       />
       <common-button
         text="Wishlist"
         type="outline"
-        class="col-span-1 place-content-center sm:text-sm"
+        class="flex h-14 items-center justify-center sm:basis-1/3"
       >
         <img :src="wishlistIcon" alt="wishlist" />
       </common-button>
