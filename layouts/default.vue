@@ -3,7 +3,7 @@
     <app-header />
     <navbar />
     <breadcrumb />
-    <main class="flex w-full gap-10 px-12">
+    <main class="flex w-full gap-10 md:px-12">
       <slot />
     </main>
   </div>

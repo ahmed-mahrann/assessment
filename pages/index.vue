@@ -4,10 +4,10 @@
       v-if="product"
       class="flex w-full flex-col justify-between gap-2 md:flex-row"
     >
-      <p class="w-full md:w-[50vw]">Main Content</p>
-      <product-options class="w-full md:w-[40vw]" />
+      <product-images-display class="w-full md:w-[45vw]" />
+      <product-options class="w-full px-5 md:w-[47vw] md:px-0" />
     </div>
-    <product-details />
+    <product-details class="px-5 md:px-0" />
     <pre class="w-[80vw] overflow-auto">{{ product }}</pre>
     <div v-if="loading">Loading...</div>
     <div v-if="error">Error loading product.</div>

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col gap-5">
+  <div class="flex flex-col gap-7">
     <div class="flex flex-col gap-2 border-b pb-5">
-      <h1 class="text-xl font-bold">{{ product?.title }}</h1>
+      <h1 class="hidden text-xl font-bold md:block">{{ product?.title }}</h1>
       <common-rating :rating="product?.featured" :subtext="true" />
       <p class="text-xl font-bold">{{ product?.price }}</p>
     </div>
@@ -24,12 +24,12 @@
     <div class="flex flex-col gap-4 sm:flex-row">
       <common-button
         text="Add to Cart"
-        class="flex h-14 items-center justify-center sm:basis-2/3"
+        class="flex h-14 items-center justify-center text-lg font-bold sm:basis-2/3"
       />
       <common-button
         text="Wishlist"
         type="outline"
-        class="flex h-14 items-center justify-center sm:basis-1/3"
+        class="flex h-14 items-center justify-center text-lg font-bold sm:basis-1/3"
       >
         <img :src="wishlistIcon" alt="wishlist" />
       </common-button>
