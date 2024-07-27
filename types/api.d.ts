@@ -30,8 +30,6 @@ export interface VariantCustomFields {
   printable_area_height: number;
   output_file_width: number;
   output_file_height: number;
-  front_image: string;
-  back_image: string;
 }
 
 export type ProductOption = {
@@ -48,7 +46,7 @@ export type OptionValue = {
   order: number;
 };
 
-export type DefaultVariantOption = {
+export type VariantOption = {
   id: number;
   title: string;
   value: string;
@@ -113,7 +111,7 @@ export type Guide = {
 
 export type ProductVariant = {
   id: string;
-  sku_id: string;
+  sku_id: string | null;
   title: string;
   featured_image: string;
   product_title: string;
@@ -124,11 +122,13 @@ export type ProductVariant = {
   media: string[];
   is_in_stock: boolean;
   is_stock_below_threshold: boolean | null;
-  specs: any;
+  specs: any | null;
   image: string;
-  option_values: DefaultVariantOption[];
+  option_values: VariantOption[];
   quantity: number;
-  custom_fields: VariantCustomFields;
+  custom_fields: VariantCustomFields | null;
+  bundles: any | null;
+  custom: number;
 };
 
 export type ProductRecord = {
@@ -174,4 +174,10 @@ export type ProductRecord = {
   youtube_video?: string;
 };
 
+export type ProductVariantData = {
+  variant: ProductVariant;
+  available_option_values: number[];
+};
+
 export type ProductResponse = BaseResponse<ProductRecord>;
+export type ProductVariantResponse = BaseResponse<ProductVariantData>;
