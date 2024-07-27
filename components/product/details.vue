@@ -17,7 +17,7 @@
         class="ml-4 px-3 py-4"
         v-html="
           product?.details !== ''
-            ? product?.details
+            ? product?.details.split('<div>')[0]
             : `<p class='text-center'>No details available for this product at this time</p>`
         "
       />
@@ -40,8 +40,8 @@ const expand = ref(false);
 .details-leave-active {
   opacity: 1;
   transition:
-    padding 150ms ease-in-out,
-    opacity 160ms ease-in-out;
+    padding 300ms ease-in-out,
+    opacity 300ms ease-in-out;
 }
 
 .details-enter-from,
