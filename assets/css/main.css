@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --swiper-scrollbar-drag-bg-color: #d11e53;
+}
+
 body {
   font-family: lato;
   font-weight: 400;
