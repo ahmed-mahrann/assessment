@@ -33,7 +33,7 @@ defineProps({
 
 const typeClass = {
   solid: "bg-buttonBg text-white hover:bg-buttonBg/80",
-  outline: "text-buttonBg border border-buttonBg hover:bg-buttonBg/20",
+  outline: "text-buttonBg border border-buttonBg hover:bg-buttonBg/10",
   link: "hover:opacity-70",
 };
 </script>

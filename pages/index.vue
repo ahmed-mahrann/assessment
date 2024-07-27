@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-6 pb-32">
     <div
       v-if="product"
       class="flex w-full flex-col justify-between gap-2 md:flex-row"
@@ -8,7 +8,6 @@
       <product-options class="w-full px-5 md:w-[47vw] md:px-0" />
     </div>
     <product-details class="px-5 md:px-0" />
-    <pre class="w-[80vw] overflow-auto">{{ product }}</pre>
     <div v-if="error">Error loading product.</div>
   </div>
 </template>
