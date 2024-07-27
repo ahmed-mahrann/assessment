@@ -12,6 +12,7 @@
         :class="{ 'outline outline-2': selectedColor.id === option.id }"
         type="link"
         :style="{ backgroundColor: option.value }"
+        :disable="isOptionValueDisabled(option.id)"
         @clicked="handleSelectColor(option)"
       />
     </div>
@@ -20,7 +21,7 @@
 
 <script setup lang="ts">
 import type { ProductOption, OptionValue } from "~/types/api";
-
+import { useProductVariantStore } from "~/store/productVariantStore";
 const props = defineProps({
   options: {
     type: Object as PropType<ProductOption>,
@@ -32,12 +33,16 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["selectColor"]);
+const emit = defineEmits<{
+  (e: "selectColor", option: OptionValue, id: string): void;
+}>();
+
+const { isOptionValueDisabled } = useProductVariantStore();
 
 const selectedColor = ref<OptionValue>(props.initialSelected);
 
 const handleSelectColor = (option: OptionValue) => {
   selectedColor.value = option;
-  emit("selectColor", option);
+  emit("selectColor", option, props.options.id);
 };
 </script>

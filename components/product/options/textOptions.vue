@@ -10,6 +10,7 @@
         :key="option.id"
         :text="option.title"
         type="link"
+        :disable="isOptionValueDisabled(option.id)"
         class="flex h-6 w-16 items-center justify-center font-bold"
         :class="{
           'bg-black text-white': selectedOption.id === option.id,
@@ -21,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { useProductVariantStore } from "~/store/productVariantStore";
 import type { ProductOption, OptionValue } from "~/types/api";
 
 const props = defineProps({
@@ -34,12 +36,16 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["selectOption"]);
+const emit = defineEmits<{
+  (e: "selectOption", option: OptionValue, id: string): void;
+}>();
+
+const { isOptionValueDisabled } = useProductVariantStore();
 
 const selectedOption = ref<OptionValue>(props.initialSelected);
 
 const handleSelectOption = (option: OptionValue) => {
   selectedOption.value = option;
-  emit("selectOption", option);
+  emit("selectOption", option, props.options.id);
 };
 </script>

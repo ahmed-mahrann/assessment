@@ -10,12 +10,18 @@
         v-if="colorOptions && initialColorSelected"
         :options="colorOptions"
         :initialSelected="initialColorSelected"
+        @select-color="
+          async (option, id) => await handleSelectOption(id, option.id)
+        "
       />
 
       <product-options-text-options
         v-if="textOptions && initialTextSelected"
         :options="textOptions"
         :initialSelected="initialTextSelected"
+        @select-option="
+          async (option, id) => await handleSelectOption(id, option.id)
+        "
       />
 
       <product-options-quantity />
@@ -58,11 +64,13 @@
 
 <script setup lang="ts">
 import { useProductStore } from "~/store/productStore";
+import { useProductVariantStore } from "~/store/productVariantStore";
 import wishlistIcon from "~/assets/icons/wishlistColored.svg";
 import deliveryIcon from "~/assets/icons/delivery.svg";
 import returnBagIcon from "~/assets/icons/bag.svg";
 
 const { productData: product } = useProductStore();
+const productVariantStore = useProductVariantStore();
 
 const getOptions = (type: string) => {
   return {
@@ -77,4 +85,30 @@ const { options: colorOptions, initialValue: initialColorSelected } =
   getOptions("COLOR");
 const { options: textOptions, initialValue: initialTextSelected } =
   getOptions("TEXT");
+
+const appliedOptionsIds = computed<number[]>(
+  () =>
+    productVariantStore.selectedProductVariant?.option_values.map(
+      (items) => items.id,
+    ) || [],
+);
+
+const handleSelectOption = async (optionId: string, optionValueId: number) => {
+  if (!appliedOptionsIds.value.includes(optionValueId)) {
+    if (productVariantStore.selectedOptions[optionId]) {
+      const temp = { ...productVariantStore.selectedOptions };
+
+      delete temp[optionId];
+      temp[optionId] = optionValueId;
+
+      productVariantStore.selectedOptions = temp;
+    } else {
+      productVariantStore.selectedOptions[optionId] = optionValueId;
+    }
+
+    await productVariantStore.fetchProductVariant(
+      Object.values(productVariantStore.selectedOptions),
+    );
+  }
+};
 </script>

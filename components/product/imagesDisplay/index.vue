@@ -13,28 +13,25 @@
 
 <script setup lang="ts">
 import { useProductStore } from "~/store/productStore";
+import { useProductVariantStore } from "~/store/productVariantStore";
 
 const { productData: product } = useProductStore();
 
 const currentSlideIndex = ref(0);
 
-// const productVariantStore = useProductVariantStore();
-let productVariantStore: any = { selectedProductVariant: true };
+const productVariantStore = useProductVariantStore();
 
 const slides = computed(() => {
   const mainImg = product?.featured_image;
   const productMedia = product?.media;
 
-  // const variantMedia = productVariantStore.selectedProductVariant?.media;
-  const variantMedia = [
-    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D",
-  ];
+  const variantMedia = productVariantStore.selectedProductVariant?.media;
 
   let allImgs: (string | undefined)[] = [];
 
   if (productVariantStore.selectedProductVariant) {
     if (variantMedia) {
-      allImgs = [mainImg, ...variantMedia, ...allImgs];
+      allImgs = [...variantMedia, ...allImgs];
     } else {
       allImgs = [mainImg, ...allImgs];
     }

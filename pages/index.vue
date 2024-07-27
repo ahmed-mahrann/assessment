@@ -9,13 +9,21 @@
     </div>
     <product-details class="px-5 md:px-0" />
     <pre class="w-[80vw] overflow-auto">{{ product }}</pre>
-    <div v-if="loading">Loading...</div>
     <div v-if="error">Error loading product.</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useProductStore } from "~/store/productStore";
+import { useProductVariantStore } from "~/store/productVariantStore";
 
-const { productData: product, loading, error } = useProductStore();
+const { productData: product, error } = useProductStore();
+
+const { clearSelectedOptions, fetchProductVariant } = useProductVariantStore();
+
+clearSelectedOptions();
+
+if (product?.default_variant) {
+  await fetchProductVariant();
+}
 </script>
