@@ -18,3 +18,7 @@ body {
 ul {
   list-style-type: disc;
 }
+
+input[type="checkbox"] {
+  @apply accent-black;
+}

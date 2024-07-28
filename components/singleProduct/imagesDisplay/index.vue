@@ -1,13 +1,16 @@
 <template>
   <div>
-    <product-images-display-desktop
+    <single-product-images-display-desktop
       class="hidden md:flex"
       :slides="slides"
       :current-slide-index="currentSlideIndex"
       @select="handleSelect"
     />
 
-    <product-images-display-mobile class="flex md:hidden" :slides="slides" />
+    <single-product-images-display-mobile
+      class="flex md:hidden"
+      :slides="slides"
+    />
   </div>
 </template>
 

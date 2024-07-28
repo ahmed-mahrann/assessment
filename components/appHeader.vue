@@ -1,7 +1,9 @@
 <template>
   <header class="flex w-full items-center justify-between px-6 py-5 sm:px-12">
-    <p class="text-xl font-bold md:text-2xl">LOGO</p>
-    <common-searchbar />
+    <nuxt-link to="/">
+      <p class="text-xl font-bold md:text-2xl">LOGO</p>
+    </nuxt-link>
+    <common-searchbar class="w-1/2" />
     <div class="flex items-center gap-3 md:gap-5">
       <div
         v-for="button in headerButtons"
@@ -14,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import accountIcon from "../assets/icons/account.svg";
-import wishlistIcon from "../assets/icons/wishlist.svg";
-import cartIcon from "../assets/icons/cart.svg";
+import accountIcon from "~/assets/icons/account.svg";
+import wishlistIcon from "~/assets/icons/wishlist.svg";
+import cartIcon from "~/assets/icons/cart.svg";
 
 const headerButtons = [
   {

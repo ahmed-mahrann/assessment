@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-1/2 items-center gap-0.5 rounded-md bg-inputBg px-3 py-2">
+  <div class="flex items-center gap-0.5 rounded-md bg-inputBg px-3 py-2">
     <img class="mr-2 opacity-30" :src="searchIcon" />
     <input
       v-model="searchValue"

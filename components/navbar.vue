@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import menuIcon from "../assets/icons/menu-icon.svg";
+import menuIcon from "~/assets/icons/menu-icon.svg";
 
 const navigationButtons = [
   "Grocery",

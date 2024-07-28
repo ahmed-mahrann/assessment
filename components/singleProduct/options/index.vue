@@ -6,7 +6,7 @@
       <p class="text-xl font-bold">{{ product?.price }}</p>
     </div>
     <div class="flex flex-col gap-4">
-      <product-options-color-options
+      <single-product-options-color-options
         v-if="colorOptions && initialColorSelected"
         :options="colorOptions"
         :initialSelected="initialColorSelected"
@@ -15,7 +15,7 @@
         "
       />
 
-      <product-options-text-options
+      <single-product-options-text-options
         v-if="textOptions && initialTextSelected"
         :options="textOptions"
         :initialSelected="initialTextSelected"
@@ -24,7 +24,7 @@
         "
       />
 
-      <product-options-quantity />
+      <single-product-options-quantity />
     </div>
 
     <div class="flex flex-col gap-4 sm:flex-row">

@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     public: {
       api_url: process.env.API_URL,
       api_variant_url: process.env.API_VARIANT_URL,
+      api_products_url: process.env.API_PRODUCTS_URL,
+      api_categories_url: process.env.API_CATEGORIES_URL,
+      api_subcategories_url: process.env.API_SUBCATEGORIES_URL,
+      api_options_url: process.env.API_OPTIONS_URL,
     },
   },
   postcss: {
