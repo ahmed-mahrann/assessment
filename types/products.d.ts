@@ -1,28 +1,12 @@
-export type Meta = {
-  code: number;
-  errors: string[];
-};
+import { BaseResponse } from "~/types/base";
 
-export type Pagination = {
-  current_page: number;
-  last_page: number;
-  total: number;
-  per_page: number;
-};
-
-export type BaseResponse<T = null> = {
-  meta: Meta;
-  data: T;
-  pagination: Pagination;
-};
-
-export type CategoryResponse = {
+export type CategoryRecord = {
   id: string;
   title: string;
   order: number;
 };
 
-export type ProductResponse = {
+export type ProductsRecord = {
   id: string;
   title: string;
   description: string;
@@ -43,3 +27,6 @@ export type SelectedFilter = {
   title: string;
   type: string;
 };
+
+export type ProductsResponse = BaseResponse<ProductsRecord[]>;
+export type CategoriesResponse = BaseResponse<CategoryRecord[]>;

@@ -37,11 +37,12 @@
 <script setup lang="ts">
 import type { SelectedFilter } from "~/types/products";
 import useCategory from "~/composables/useCategory";
-import useProducts from "~/composables/useProducts";
+import { useProductsStore } from "~/store/productsStore";
 import filterIcon from "~/assets/icons/filter-icon.svg";
 
 const { selectedCategoryFilters } = useCategory();
-const { products } = useProducts();
+const productsStore = useProductsStore();
+const { products } = storeToRefs(productsStore);
 
 const isMenuOpen = ref(false);
 

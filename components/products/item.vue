@@ -18,12 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductResponse } from "~/types/products";
+import type { ProductsRecord } from "~/types/products";
 import wishlistIcon from "~/assets/icons/wishlist.svg";
 
 defineProps({
   brand: {
-    type: Object as PropType<ProductResponse>,
+    type: Object as PropType<ProductsRecord>,
     required: true,
   },
 });

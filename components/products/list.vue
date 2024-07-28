@@ -30,12 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import useProducts from "~/composables/useProducts";
+import { useProductsStore } from "~/store/productsStore";
 import useCategory from "~/composables/useCategory";
 import loadingIcon from "~/assets/icons/loading-icon.svg";
 import emptyIcon from "~/assets/icons/empty-indicator.svg";
 
-const { products, fetchProducts } = useProducts();
+const productsStore = useProductsStore();
+
+const { products } = storeToRefs(productsStore);
+
 const { selectedCategoryFilters } = useCategory();
 const route = useRoute();
 const router = useRouter();
@@ -53,7 +56,7 @@ watchEffect(async () => {
     currentPage.value = 1;
     router.push(`/?page=${currentPage.value}`);
   }
-  await fetchProducts(filterItems.value, currentPage.value);
+  await productsStore.fetchProducts(filterItems.value, currentPage.value);
   loading.value = false;
 });
 </script>

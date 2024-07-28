@@ -37,7 +37,7 @@
           @click="clearAllFilters"
         />
         <common-button
-          :text="`View ${products?.data.length} items`"
+          :text="`View ${productsStore.products?.data.length} items`"
           type="solid"
           class="h-12 px-3"
           @click="isMenuOpen = false"
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import useCategory from "~/composables/useCategory";
-import useProducts from "~/composables/useProducts";
+import { useProductsStore } from "~/store/productsStore";
 import closeIcon from "~/assets/icons/close-icon.svg";
 
 const isMenuOpen = defineModel("menu", {
@@ -58,7 +58,7 @@ const isMenuOpen = defineModel("menu", {
 });
 
 const { selectedCategoryFilters } = useCategory();
-const { products } = useProducts();
+const productsStore = useProductsStore();
 
 const clearAllFilters = () => {
   selectedCategoryFilters.value = [];
