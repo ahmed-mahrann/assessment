@@ -23,14 +23,15 @@ export type ProductsRecord = {
 };
 
 export type SelectedFilter = {
-  id: string;
+  id: string | number;
   title: string;
   type: string;
+  value?: string;
 };
 
 export type ProductsResponse = BaseResponse<ProductsRecord[]>;
 export type CategoriesResponse = BaseResponse<CategoryRecord[]>;
-export type OptionsResponse = BaseResponse<FilterOptionsRecord[]>;
+export type OptionsResponse = BaseResponse<FilterOptionsRecord>;
 
 export type FilterOptionsRecord = {
   price: Price;

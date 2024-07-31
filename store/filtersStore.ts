@@ -11,7 +11,7 @@ export const useFilterStore = defineStore("filter-store", () => {
   const runtimeConfig = useRuntimeConfig();
   const categories = ref<CategoryRecord[] | undefined>();
   const subcategories = ref<CategoryRecord[] | undefined>();
-  const options = ref<FilterOptionsRecord[] | undefined>();
+  const filters = ref<FilterOptionsRecord | undefined>();
   const showFilters = ref(false);
 
   const selectedFilters = ref<SelectedFilter[]>([]);
@@ -19,7 +19,7 @@ export const useFilterStore = defineStore("filter-store", () => {
 
   const cat_api = runtimeConfig.public.api_categories_url;
   const subcat_api = runtimeConfig.public.api_subcategories_url;
-  const options_api = runtimeConfig.public.api_categories_url;
+  const filters_api = runtimeConfig.public.api_options_url;
 
   const fetchCategories = async () => {
     loading.value = true;
@@ -62,12 +62,12 @@ export const useFilterStore = defineStore("filter-store", () => {
 
     try {
       const { data: res } = await useAsyncData("options", () =>
-        $fetch<OptionsResponse>(options_api),
+        $fetch<OptionsResponse>(filters_api),
       );
       if (!res.value?.data) {
         console.error("No data returned");
       } else {
-        options.value = res.value.data;
+        filters.value = res.value.data;
       }
       loading.value = false;
     } catch (err) {
@@ -78,7 +78,7 @@ export const useFilterStore = defineStore("filter-store", () => {
   return {
     categories,
     subcategories,
-    options,
+    filters,
     loading,
     selectedFilters,
     showFilters,

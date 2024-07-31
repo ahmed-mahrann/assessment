@@ -23,14 +23,14 @@ export const useProductsStore = defineStore("products-store", () => {
 
             return acc;
           },
-          {} as { [key: string]: string[] },
+          {} as { [key: string]: (string | number)[] },
         );
 
         const queryString = Object.entries(queryObj)
           .map(([type, filters]) =>
-            type === "categories" || "sub-categories"
-              ? `filter[v2_categories]=${filters.join(",")}`
-              : `filter[${type}]=${filters.join(",")}`,
+            type === "options"
+              ? `filter[options]=${filters.join(",")}`
+              : `filter[v2_categories]=${filters.join(",")}`,
           )
           .join("&");
 
