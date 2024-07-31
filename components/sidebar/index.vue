@@ -3,6 +3,7 @@
     <h1 class="whitespace-nowrap p-3 text-xl font-bold">Dining Room Tables</h1>
     <div class="flex flex-col gap-5">
       <filters-category-filter />
+      <filters-options />
     </div>
   </div>
 </template>

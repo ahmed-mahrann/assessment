@@ -12,11 +12,11 @@
     <img v-else :src="loadingIcon" alt="Loading" class="w-56 self-center" />
 
     <div
-      v-show="!products.data.length"
+      v-show="!products.data.length && !loading"
       class="flex flex-col items-center justify-center gap-2"
     >
       <img :src="emptyIcon" alt="No data" class="w-16" />
-      <p class="text-xl">No Product found</p>
+      <p class="text-xl">No Products found</p>
     </div>
 
     <common-pagination

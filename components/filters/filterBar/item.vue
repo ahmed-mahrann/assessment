@@ -2,6 +2,11 @@
   <div
     class="flex items-center gap-2 whitespace-nowrap rounded-md bg-grayBg px-2 py-1"
   >
+    <div
+      v-if="item.value"
+      class="size-4 rounded-full"
+      :style="{ backgroundColor: item.value }"
+    />
     <span class="text-xs">{{ item.title }}</span>
     <common-button
       :icon="closeIcon"
