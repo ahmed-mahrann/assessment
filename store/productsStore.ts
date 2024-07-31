@@ -27,12 +27,19 @@ export const useProductsStore = defineStore("products-store", () => {
         );
 
         const queryString = Object.entries(queryObj)
-          .map(([type, filters]) => `filter[v2_${type}]=${filters.join(",")}`)
+          .map(([type, filters]) =>
+            type === "categories" || "sub-categories"
+              ? `filter[v2_categories]=${filters.join(",")}`
+              : `filter[${type}]=${filters.join(",")}`,
+          )
           .join("&");
 
         const { data: res } = await useAsyncData(
           `products-${page}-${queryString}`,
-          () => $fetch<ProductsResponse>(`${api}?${queryString}&page=${page}`),
+          () =>
+            $fetch<ProductsResponse>(
+              `${api}?${queryString}&page=${page}&per_page=30`,
+            ),
         );
 
         if (!res.value?.data) {
@@ -43,7 +50,7 @@ export const useProductsStore = defineStore("products-store", () => {
         loading.value = false;
       } else {
         const { data: res } = await useAsyncData(`products-${page}`, () =>
-          $fetch<ProductsResponse>(`${api}?page=${page}`),
+          $fetch<ProductsResponse>(`${api}?page=${page}&per_page=30`),
         );
 
         if (!res.value?.data) {
