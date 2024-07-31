@@ -2,10 +2,7 @@
   <div v-if="products" class="flex grow flex-col gap-4 lg:pt-20">
     <filters-filter-bar />
 
-    <div
-      v-if="!loading"
-      class="flex flex-wrap justify-center gap-5 lg:justify-normal"
-    >
+    <div v-if="!loading" class="flex flex-wrap justify-center gap-5">
       <products-item
         v-for="brand in products.data"
         :key="brand.id"
@@ -31,15 +28,16 @@
 
 <script setup lang="ts">
 import { useProductsStore } from "~/store/productsStore";
-import useCategory from "~/composables/useCategory";
+import { useFilterStore } from "~/store/filtersStore";
 import loadingIcon from "~/assets/icons/loading-icon.svg";
 import emptyIcon from "~/assets/icons/empty-indicator.svg";
 
 const productsStore = useProductsStore();
+const filterStore = useFilterStore();
 
 const { products } = storeToRefs(productsStore);
+const { selectedFilters } = storeToRefs(filterStore);
 
-const { selectedCategoryFilters } = useCategory();
 const route = useRoute();
 const router = useRouter();
 
@@ -47,7 +45,7 @@ const currentPage = ref(Number(route.query.page) || 1);
 const loading = ref(false);
 
 const filterItems = computed(() => {
-  return [...selectedCategoryFilters.value];
+  return [...selectedFilters.value];
 });
 
 watchEffect(async () => {
