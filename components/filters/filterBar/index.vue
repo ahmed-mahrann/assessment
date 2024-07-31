@@ -12,7 +12,9 @@
         Filter
         {{ filterItems.length > 0 ? `(${filterItems.length})` : "" }}
       </span>
-      <span class="hidden whitespace-nowrap lg:inline">Hide Filters</span>
+      <span class="hidden whitespace-nowrap lg:inline">
+        {{ showFilters ? "Hide Filters" : "Show Filters" }}
+      </span>
       <span class="inline border-l pl-2 lg:hidden">
         {{ products?.data.length }} Items</span
       >
@@ -60,11 +62,9 @@ const filterItems = computed(() => {
 });
 
 const removeFilter = (filter: SelectedFilter) => {
-  if (filter.type === "categories") {
-    selectedFilters.value = selectedFilters.value.filter(
-      (item) => item.id !== filter.id,
-    );
-  }
+  selectedFilters.value = selectedFilters.value.filter(
+    (item) => item.id !== filter.id,
+  );
 };
 
 const openMenu = () => {
