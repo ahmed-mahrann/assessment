@@ -10,11 +10,7 @@
         >
           <h1 class="font-bold">
             Filter By
-            {{
-              selectedCategoryFilters.length
-                ? `(${selectedCategoryFilters.length})`
-                : ""
-            }}
+            {{ selectedFilters.length ? `(${selectedFilters.length})` : "" }}
           </h1>
           <common-button
             :icon="closeIcon"
@@ -48,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import useCategory from "~/composables/useCategory";
+import { useFilterStore } from "~/store/filtersStore";
 import { useProductsStore } from "~/store/productsStore";
 import closeIcon from "~/assets/icons/close-icon.svg";
 
@@ -57,10 +53,11 @@ const isMenuOpen = defineModel("menu", {
   default: false,
 });
 
-const { selectedCategoryFilters } = useCategory();
 const productsStore = useProductsStore();
+const filterStore = useFilterStore();
+const { selectedFilters } = storeToRefs(filterStore);
 
 const clearAllFilters = () => {
-  selectedCategoryFilters.value = [];
+  selectedFilters.value = [];
 };
 </script>

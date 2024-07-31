@@ -26,9 +26,16 @@
         @remove="removeFilter(item)"
       />
     </div>
-    <span class="hidden border-l pl-3 lg:inline">
-      {{ products?.data.length }} Items</span
-    >
+    <div class="hidden gap-2 border-l pl-3 lg:flex">
+      <common-button
+        v-if="selectedFilters.length"
+        text="Clear all"
+        type="link"
+        class="underline"
+        @click="selectedFilters = []"
+      />
+      <span> {{ products?.data.length }} Item(s) </span>
+    </div>
 
     <filters-filter-menu v-model:menu="isMenuOpen" />
   </div>
@@ -36,23 +43,25 @@
 
 <script setup lang="ts">
 import type { SelectedFilter } from "~/types/products";
-import useCategory from "~/composables/useCategory";
 import { useProductsStore } from "~/store/productsStore";
+import { useFilterStore } from "~/store/filtersStore";
 import filterIcon from "~/assets/icons/filter-icon.svg";
 
-const { selectedCategoryFilters } = useCategory();
+const filterStore = useFilterStore();
 const productsStore = useProductsStore();
+
 const { products } = storeToRefs(productsStore);
+const { selectedFilters, showFilters } = storeToRefs(filterStore);
 
 const isMenuOpen = ref(false);
 
 const filterItems = computed(() => {
-  return [...selectedCategoryFilters.value];
+  return [...selectedFilters.value];
 });
 
 const removeFilter = (filter: SelectedFilter) => {
   if (filter.type === "categories") {
-    selectedCategoryFilters.value = selectedCategoryFilters.value.filter(
+    selectedFilters.value = selectedFilters.value.filter(
       (item) => item.id !== filter.id,
     );
   }
@@ -61,6 +70,8 @@ const removeFilter = (filter: SelectedFilter) => {
 const openMenu = () => {
   if (window.innerWidth < 1024) {
     isMenuOpen.value = true;
+  } else {
+    showFilters.value = !showFilters.value;
   }
 };
 </script>

@@ -2,19 +2,30 @@
   <filters-filter-list
     v-if="categories"
     title="Categories"
-    v-model:selectedFilters="selectedCategoryFilters"
-    :list="categories.data"
-    :expand="isExpanded"
-    @expandClicked="isExpanded = !isExpanded"
+    v-model:selectedFilters="selectedFilters"
+    :list="categories"
+    :expand="isCatExpanded"
+    @expandClicked="isCatExpanded = !isCatExpanded"
+  />
+  <filters-filter-list
+    v-if="subcategories"
+    title="Sub-categories"
+    v-model:selectedFilters="selectedFilters"
+    :list="subcategories"
+    :expand="isSubExpanded"
+    @expandClicked="isSubExpanded = !isSubExpanded"
   />
 </template>
 
 <script setup lang="ts">
-import useCategory from "~/composables/useCategory";
+import { useFilterStore } from "~/store/filtersStore";
 
-const { categories, selectedCategoryFilters, fetchCategories } = useCategory();
+const filterStore = useFilterStore();
+const { categories, selectedFilters, subcategories } = storeToRefs(filterStore);
 
-const isExpanded = ref(true);
+const isCatExpanded = ref(true);
+const isSubExpanded = ref(true);
 
-await fetchCategories();
+await filterStore.fetchCategories();
+await filterStore.fetchSubCategories();
 </script>
