@@ -11,6 +11,7 @@
       :options="options"
     />
   </template>
+  <filters-options-price />
 </template>
 
 <script setup lang="ts">
