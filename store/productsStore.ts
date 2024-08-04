@@ -30,7 +30,9 @@ export const useProductsStore = defineStore("products-store", () => {
           .map(([type, filters]) =>
             type === "options"
               ? `filter[options]=${filters.join(",")}`
-              : `filter[v2_categories]=${filters.join(",")}`,
+              : type === "price"
+                ? `filter[max_price]=${filters[1]}&filter[min_price]=${filters[0]}`
+                : `filter[v2_categories]=${filters.join(",")}`,
           )
           .join("&");
 
@@ -38,7 +40,7 @@ export const useProductsStore = defineStore("products-store", () => {
           `products-${page}-${queryString}`,
           () =>
             $fetch<ProductsResponse>(
-              `${api}?${queryString}&page=${page}&per_page=30`,
+              `${api}?${queryString}&page=${page}&per_600page=30`,
             ),
         );
 

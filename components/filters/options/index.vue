@@ -11,7 +11,7 @@
       :options="options"
     />
   </template>
-  <filters-options-price />
+  <filters-options-price v-model:selectedFilters="selectedFilters" />
 </template>
 
 <script setup lang="ts">

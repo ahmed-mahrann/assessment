@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="item.title !== ''"
     class="flex items-center gap-2 whitespace-nowrap rounded-md bg-grayBg px-2 py-1"
   >
     <div

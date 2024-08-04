@@ -30,7 +30,7 @@
     </div>
     <div class="hidden gap-2 border-l pl-3 lg:flex">
       <common-button
-        v-if="selectedFilters.length"
+        v-if="selectedFilters.length || selectedFilters[0]?.title === ''"
         text="Clear all"
         type="link"
         class="underline"

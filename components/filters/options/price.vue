@@ -19,28 +19,84 @@
         :dotStyle="{ backgroundColor: 'black', border: 'none' }"
         :processStyle="{ backgroundColor: 'black' }"
         :dotSize="16"
+        @change="handleChangePrice"
+        @error="error"
       />
-      <div class="flex w-full gap-3">
-        <input
-          v-model="priceValue[0]"
-          class="w-44 rounded-md border border-subtitle bg-grayBg text-center text-lg"
-        />
-        <input
-          v-model="priceValue[1]"
-          class="w-44 rounded-md border border-subtitle bg-grayBg text-center text-lg"
-        />
+      <span style="color: red; margin-left: 20px">{{ errorMsg }}</span>
+      <div class="flex w-full justify-center gap-3">
+        <div class="relative text-lg">
+          <input
+            v-model="priceValue[0]"
+            class="w-1/3 rounded-md border border-subtitle bg-grayBg py-1 text-center lg:w-36"
+          />
+          <span class="absolute right-0 top-1/2 -translate-y-1/2 pr-2">
+            EGP
+          </span>
+        </div>
+        <div class="relative text-lg">
+          <input
+            v-model="priceValue[1]"
+            class="w-1/3 rounded-md border border-subtitle bg-grayBg py-1 text-center lg:w-36"
+          />
+          <span class="absolute right-0 top-1/2 -translate-y-1/2 pr-2">
+            EGP
+          </span>
+        </div>
       </div>
+      <span class="text-red-500">{{ errorMsg }}</span>
     </client-only>
   </div>
   <span class="border-t" />
 </template>
 
 <script setup lang="ts">
+import type { SelectedFilter } from "~/types/products";
+import { useDebounceFn } from "@vueuse/core";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
+
 import plusIcon from "~/assets/icons/plus.svg";
 import minusIcon from "~/assets/icons/minus.svg";
 
+enum ERROR_TYPE {
+  VALUE = 1,
+  INTERVAL = 2,
+  MIN = 3,
+  MAX = 4,
+  ORDER = 5,
+}
+
+const selectedFilters = defineModel("selectedFilters", {
+  type: Array as PropType<SelectedFilter[]>,
+});
+
 const priceValue = ref([0, 600]);
 const isPriceExpanded = ref(true);
+const errorMsg = ref("");
+
+const handleChangePrice = useDebounceFn(() => {
+  selectedFilters.value![0] = {
+    id: priceValue.value[0],
+    title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
+    type: "price",
+  };
+  selectedFilters.value![1] = {
+    id: priceValue.value[1],
+    title: "",
+    type: "price",
+  };
+  errorMsg.value = "";
+}, 1000);
+
+const error = (type: number, msg: string) => {
+  switch (type) {
+    case ERROR_TYPE.MIN:
+      break;
+    case ERROR_TYPE.MAX:
+      break;
+    case ERROR_TYPE.VALUE:
+      break;
+  }
+  errorMsg.value = msg;
+};
 </script>

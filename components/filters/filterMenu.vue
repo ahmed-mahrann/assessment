@@ -20,6 +20,7 @@
         </div>
         <div class="flex flex-col gap-3 px-5 sm:px-10">
           <filters-category-filter />
+          <filters-options />
         </div>
       </div>
 
