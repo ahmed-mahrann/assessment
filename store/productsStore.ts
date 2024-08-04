@@ -40,7 +40,7 @@ export const useProductsStore = defineStore("products-store", () => {
           `products-${page}-${queryString}`,
           () =>
             $fetch<ProductsResponse>(
-              `${api}?${queryString}&page=${page}&per_600page=30`,
+              `${api}?${queryString}&page=${page}&per_page=30`,
             ),
         );
 

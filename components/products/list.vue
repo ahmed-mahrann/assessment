@@ -48,12 +48,11 @@ const filterItems = computed(() => {
   return [...selectedFilters.value];
 });
 
+const productsClone = { ...products.value };
+
 watchEffect(async () => {
   loading.value = true;
-  if (filterItems.value.length > 0) {
-    currentPage.value = 1;
-    router.push(`/?page=${currentPage.value}`);
-  }
+  router.push({ query: { page: currentPage.value } });
   await productsStore.fetchProducts(filterItems.value, currentPage.value);
   loading.value = false;
 });
