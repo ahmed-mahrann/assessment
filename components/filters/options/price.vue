@@ -75,16 +75,19 @@ const isPriceExpanded = ref(true);
 const errorMsg = ref("");
 
 const handleChangePrice = useDebounceFn(() => {
-  selectedFilters.value![0] = {
-    id: priceValue.value[0],
-    title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
-    type: "price",
-  };
-  selectedFilters.value![1] = {
-    id: priceValue.value[1],
-    title: "",
-    type: "price",
-  };
+  if (selectedFilters.value?.find((i) => i.type !== "price")) {
+    selectedFilters.value.push({
+      id: `${priceValue.value[0]},${priceValue.value[1]}`,
+      title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
+      type: "price",
+    });
+  } else {
+    selectedFilters.value![0] = {
+      id: `${priceValue.value[0]},${priceValue.value[1]}`,
+      title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
+      type: "price",
+    };
+  }
   errorMsg.value = "";
 }, 1000);
 

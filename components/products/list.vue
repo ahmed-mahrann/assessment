@@ -22,6 +22,15 @@
     <common-pagination
       v-model:page="currentPage"
       :listInfo="products.pagination"
+      @change="
+        router.replace({
+          path: router.currentRoute.value.path,
+          query: {
+            ...router.currentRoute.value.query,
+            page: currentPage,
+          },
+        })
+      "
     />
   </div>
 </template>
@@ -38,21 +47,20 @@ const filterStore = useFilterStore();
 const { products } = storeToRefs(productsStore);
 const { selectedFilters } = storeToRefs(filterStore);
 
-const route = useRoute();
 const router = useRouter();
 
-const currentPage = ref(Number(route.query.page) || 1);
+const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
 const loading = ref(false);
 
 const filterItems = computed(() => {
   return [...selectedFilters.value];
 });
 
-const productsClone = { ...products.value };
+console.log(router.currentRoute.value.query);
+console.log(objectToQueryString(router.currentRoute.value.query));
 
 watchEffect(async () => {
   loading.value = true;
-  router.push({ query: { page: currentPage.value } });
   await productsStore.fetchProducts(filterItems.value, currentPage.value);
   loading.value = false;
 });

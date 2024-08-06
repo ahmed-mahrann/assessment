@@ -19,7 +19,7 @@
         :key="option.id"
         :text="option.title"
         type="link"
-        class="flex items-center justify-center border-2 border-black px-4 py-1 capitalize"
+        class="flex items-center justify-center border border-black px-4 py-1 capitalize"
         :class="{
           'bg-black text-white': selectedFilters?.find(
             (item) => item.id === option.id,

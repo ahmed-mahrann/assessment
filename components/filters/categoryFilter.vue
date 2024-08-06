@@ -25,7 +25,4 @@ const { categories, selectedFilters, subcategories } = storeToRefs(filterStore);
 
 const isCatExpanded = ref(true);
 const isSubExpanded = ref(true);
-
-await filterStore.fetchCategories();
-await filterStore.fetchSubCategories();
 </script>

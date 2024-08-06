@@ -26,6 +26,4 @@ const colorOptions = computed(() =>
 const textOptions = computed(() =>
   filters.value?.options.filter((option) => option.type === "TEXT"),
 );
-
-await filterStore.fetchOptions();
 </script>
