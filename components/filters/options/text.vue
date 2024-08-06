@@ -25,6 +25,7 @@
             (item) => item.id === option.id,
           ),
         }"
+        data-cy="filter-btn"
         @clicked="handleSelectOption(option)"
       />
     </div>

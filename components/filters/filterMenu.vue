@@ -3,6 +3,7 @@
     <div
       class="fixed left-0 top-0 z-10 flex h-full w-full flex-col justify-between gap-4 overflow-auto bg-white transition-transform duration-500"
       :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'"
+      data-cy="filter-menu"
     >
       <div class="flex flex-col gap-4">
         <div
@@ -31,6 +32,7 @@
           text="Clear All"
           type="outline"
           class="h-12 px-3"
+          data-cy="clear-all"
           @click="clearAllFilters"
         />
         <common-button

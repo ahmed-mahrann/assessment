@@ -7,6 +7,7 @@
       type="link"
       @click="openMenu"
       class="flex px-2 py-1 text-title md:pl-2 md:pr-10 lg:mr-3 lg:!rounded-[4px] lg:border lg:border-gray-500"
+      data-cy="show-filters-btn"
     >
       <span class="inline font-bold lg:hidden">
         Filter

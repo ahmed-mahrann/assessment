@@ -10,6 +10,7 @@
         />
       </button>
     </div>
+
     <common-searchbar
       v-show="expand"
       v-model:value="searchValue"
@@ -18,11 +19,12 @@
     />
     <div
       v-show="expand"
-      v-for="item in filteredList"
+      v-for="(item, index) in filteredList"
       class="flex items-center gap-2"
     >
       <input
         type="checkbox"
+        data-cy="checkbox"
         :id="item.id"
         :value="{ title: item.title, id: item.id, type: title.toLowerCase() }"
         v-model="selectedFilters"
@@ -31,6 +33,7 @@
       <label :for="item.id">{{ item.title }}</label>
       <span v-if="item.products_count">({{ item.products_count }})</span>
     </div>
+
     <div
       v-show="expand && !filteredList.length"
       class="flex flex-col items-center justify-center gap-2"
@@ -39,6 +42,7 @@
       <p>No {{ title }} found</p>
     </div>
   </div>
+
   <span class="border-t" />
 </template>
 
