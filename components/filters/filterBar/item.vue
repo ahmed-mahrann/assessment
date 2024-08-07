@@ -5,7 +5,7 @@
     data-cy="filter-bar-item"
   >
     <div
-      v-if="item.value"
+      v-if="item.value?.includes('#')"
       class="size-4 rounded-full"
       :style="{ backgroundColor: item.value }"
     />

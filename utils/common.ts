@@ -1,4 +1,8 @@
-import type { SelectedFilter } from "~/types/products";
+import type {
+  CategoryRecord,
+  ProductOption,
+  SelectedFilter,
+} from "~/types/products";
 
 export function parseQueryString(queryString: string) {
   const params = new URLSearchParams(queryString);
@@ -17,13 +21,12 @@ export function parseQueryString(queryString: string) {
       }
     }
   }
-
   return result;
 }
 
 export function objectToQueryString(obj: any) {
   const queryStringParts = [];
-
+  if (!obj || !Object.values(obj).length) return undefined;
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       if (key !== "page") {
@@ -48,4 +51,54 @@ export function filtersToQueryObj(filters: SelectedFilter[]) {
     },
     {} as { [key: string]: string[] },
   );
+}
+
+export function getSelectedFilters(
+  categoryFilters: CategoryRecord[],
+  options: ProductOption[],
+  initialQuery: any,
+) {
+  const result: SelectedFilter[] = [];
+
+  for (const [type, value] of Object.entries(initialQuery)) {
+    const ids = value as string;
+    const idArray = ids.split(",");
+    if (type === "options") {
+      idArray.forEach((id) => {
+        options.forEach((element) => {
+          const item = element.option_values.find(
+            (i) => i.id.toString() === id,
+          );
+          if (item) {
+            result.push({
+              type,
+              title: item.title,
+              id: item.id,
+              value: item.value,
+            });
+          }
+        });
+      });
+    } else if (type === "categories") {
+      idArray.forEach((id) => {
+        const item = categoryFilters.find((element) => element.id === id);
+        if (item) {
+          result.push({
+            type,
+            title: item.title,
+            id: item.id,
+          });
+        }
+      });
+    } else if (type === "max_price" || type === "min_price") {
+      if (!result.find((i) => i.type.includes("price"))) {
+        result.push({
+          type,
+          title: `${initialQuery?.min_price} - ${initialQuery?.max_price} EGP`,
+          id: `${initialQuery?.min_price},${initialQuery?.max_price}`,
+        });
+      }
+    }
+  }
+  return result;
 }

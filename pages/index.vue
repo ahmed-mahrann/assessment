@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 import { useFilterStore } from "~/store/filtersStore";
-import type { SelectedFilter } from "~/types/products";
+import { getSelectedFilters } from "~/utils/common";
 
 const filterStore = useFilterStore();
 const { selectedFilters, categories, subcategories, filters } =
@@ -15,55 +15,14 @@ const router = useRouter();
 
 const initialQuery = router.currentRoute.value.query;
 
-const getSelectedFilters = () => {
-  const result: SelectedFilter[] = [];
-  const categoryFilters = [...categories.value!, ...subcategories.value!];
-
-  for (const [type, value] of Object.entries(initialQuery)) {
-    const ids = value as string;
-    const idArray = ids.split(",");
-    if (type === "options") {
-      idArray.forEach((id) => {
-        filters.value?.options.forEach((element) => {
-          const item = element.option_values.find(
-            (i) => i.id.toString() === id,
-          );
-          if (item) {
-            result.push({
-              type,
-              title: item.title,
-              id: item.id,
-              value: item.value,
-            });
-          }
-        });
-      });
-    } else if (type === "categories") {
-      idArray.forEach((id) => {
-        const item = categoryFilters.find((element) => element.id === id);
-        if (item) {
-          result.push({
-            type,
-            title: item.title,
-            id: item.id,
-          });
-        }
-      });
-    } else if (type === "max_price" || type === "min_price") {
-      if (!result.find((i) => i.type.includes("price"))) {
-        result.push({
-          type,
-          title: `${initialQuery?.min_price} - ${initialQuery?.max_price} EGP`,
-          id: `${initialQuery?.min_price},${initialQuery?.max_price}`,
-        });
-      }
-    }
-  }
-  selectedFilters.value = [...result];
-};
-
 await filterStore.fetchCategories();
 await filterStore.fetchSubCategories();
 await filterStore.fetchOptions();
-getSelectedFilters();
+
+if (categories.value && subcategories.value && filters.value?.options)
+  selectedFilters.value = getSelectedFilters(
+    [...categories.value, ...subcategories.value],
+    filters.value.options,
+    initialQuery,
+  );
 </script>

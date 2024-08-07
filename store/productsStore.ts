@@ -1,10 +1,6 @@
 import { defineStore } from "pinia";
 import type { ProductsResponse, SelectedFilter } from "~/types/products";
-import {
-  parseQueryString,
-  objectToQueryString,
-  filtersToQueryObj,
-} from "~/utils/common";
+import { parseQueryString, filtersToQueryObj } from "~/utils/common";
 
 export const useProductsStore = defineStore("products-store", () => {
   const runtimeConfig = useRuntimeConfig();
@@ -17,12 +13,10 @@ export const useProductsStore = defineStore("products-store", () => {
 
   const api = runtimeConfig.public.api_products_url;
 
-  const initialFilters = objectToQueryString(router.currentRoute.value.query);
-
   const fetchProducts = async (query?: SelectedFilter[], page: number = 1) => {
     loading.value = true;
     try {
-      if (query && query.length > 0) {
+      if (query) {
         const queryObj = filtersToQueryObj(query);
 
         const queryString = Object.entries(queryObj)
@@ -39,7 +33,7 @@ export const useProductsStore = defineStore("products-store", () => {
 
         router.replace({
           path: router.currentRoute.value.path,
-          query: { ...router.currentRoute.value.query, ...routeQuery },
+          query: routeQuery,
         });
 
         const { data: res } = await useAsyncData(
@@ -48,17 +42,6 @@ export const useProductsStore = defineStore("products-store", () => {
             $fetch<ProductsResponse>(
               `${api}?${queryString}&page=${page}&per_page=30`,
             ),
-        );
-
-        if (!res.value?.data) {
-          console.error("No data returned");
-        } else {
-          products.value = res.value;
-        }
-        loading.value = false;
-      } else if (initialFilters) {
-        const { data: res } = await useAsyncData(`products-${page}`, () =>
-          $fetch<ProductsResponse>(`${api}?${initialFilters}&per_page=30`),
         );
 
         if (!res.value?.data) {
