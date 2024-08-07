@@ -70,23 +70,35 @@ const selectedFilters = defineModel("selectedFilters", {
   type: Array as PropType<SelectedFilter[]>,
 });
 
-const priceValue = ref([0, 600]);
+const router = useRouter();
+
+const minRoutePrice = Number(router.currentRoute.value.query.min_price) || 0;
+const maxRoutePrice = Number(router.currentRoute.value.query.max_price) || 600;
+
+const priceValue = ref<number[]>([minRoutePrice, maxRoutePrice]);
 const isPriceExpanded = ref(true);
 const errorMsg = ref("");
 
 const handleChangePrice = useDebounceFn(() => {
-  if (selectedFilters.value?.find((i) => i.type !== "price")) {
+  if (
+    selectedFilters.value?.filter((i) => i.type.includes("price")).length === 0
+  ) {
     selectedFilters.value.push({
       id: `${priceValue.value[0]},${priceValue.value[1]}`,
       title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
-      type: "price",
+      type: "max_price",
     });
   } else {
-    selectedFilters.value![0] = {
-      id: `${priceValue.value[0]},${priceValue.value[1]}`,
-      title: `${priceValue.value[0]} - ${priceValue.value[1]} EGP`,
-      type: "price",
-    };
+    let index = selectedFilters.value?.findIndex(
+      (i) => i.type === "max_price",
+    )!;
+
+    if (index !== -1 && selectedFilters.value) {
+      selectedFilters.value[index].id =
+        `${priceValue.value[0]},${priceValue.value[1]}`;
+      selectedFilters.value[index].title =
+        `${priceValue.value[0]} - ${priceValue.value[1]} EGP`;
+    }
   }
   errorMsg.value = "";
 }, 1000);

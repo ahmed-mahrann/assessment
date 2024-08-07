@@ -52,16 +52,9 @@ const router = useRouter();
 const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
 const loading = ref(false);
 
-const filterItems = computed(() => {
-  return [...selectedFilters.value];
-});
-
-console.log(router.currentRoute.value.query);
-console.log(objectToQueryString(router.currentRoute.value.query));
-
 watchEffect(async () => {
   loading.value = true;
-  await productsStore.fetchProducts(filterItems.value, currentPage.value);
+  await productsStore.fetchProducts(selectedFilters.value, currentPage.value);
   loading.value = false;
 });
 </script>

@@ -29,7 +29,7 @@ export const useProductsStore = defineStore("products-store", () => {
           .map(([type, filters]) =>
             type === "options"
               ? `filter[options]=${filters.join(",")}`
-              : type === "price"
+              : type === "max_price" || type == "min_price"
                 ? `filter[max_price]=${filters[0].split(",")[1]}&filter[min_price]=${filters[0].split(",")[0]}`
                 : `filter[v2_categories]=${filters.join(",")}`,
           )

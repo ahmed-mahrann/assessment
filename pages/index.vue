@@ -50,11 +50,13 @@ const getSelectedFilters = () => {
         }
       });
     } else if (type === "max_price" || type === "min_price") {
-      result.push({
-        type,
-        title: `${idArray.join(" - ")} EGP`,
-        id: ids,
-      });
+      if (!result.find((i) => i.type.includes("price"))) {
+        result.push({
+          type,
+          title: `${initialQuery?.min_price} - ${initialQuery?.max_price} EGP`,
+          id: `${initialQuery?.min_price},${initialQuery?.max_price}`,
+        });
+      }
     }
   }
   selectedFilters.value = [...result];
