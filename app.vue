@@ -8,8 +8,8 @@
 import { useProductStore } from "~/store/productStore";
 import { register as registerSwiper } from "swiper/element/bundle";
 
-const { fetchProduct } = useProductStore();
+const productStore = useProductStore();
 
 registerSwiper();
-await fetchProduct();
+await productStore.fetchProduct();
 </script>
