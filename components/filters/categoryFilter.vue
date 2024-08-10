@@ -6,7 +6,7 @@
     :list="categories"
     :expand="isCatExpanded"
     @expandClicked="isCatExpanded = !isCatExpanded"
-    @click="currentPage = 1"
+    @filter-select="currentPage = 1"
   />
   <filters-filter-list
     v-if="subcategories"
@@ -15,7 +15,7 @@
     :list="subcategories"
     :expand="isSubExpanded"
     @expandClicked="isSubExpanded = !isSubExpanded"
-    @click="currentPage = 1"
+    @filter-select="currentPage = 1"
   />
 </template>
 

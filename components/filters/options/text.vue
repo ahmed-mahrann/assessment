@@ -58,6 +58,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["filterSelect"]);
+
 const isOptionExpanded = ref(true);
 
 const title = ref(props.options.title.split("_").join(" "));
@@ -76,5 +78,6 @@ const handleSelectOption = (option: Option) => {
       type: "options",
     });
   }
+  emit("filterSelect");
 };
 </script>

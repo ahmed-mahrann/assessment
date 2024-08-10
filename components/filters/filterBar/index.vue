@@ -69,6 +69,7 @@ const removeFilter = (filter: SelectedFilter) => {
   selectedFilters.value = selectedFilters.value.filter(
     (item) => item.id !== filter.id,
   );
+  currentPage.value = 1;
 };
 
 const openMenu = () => {

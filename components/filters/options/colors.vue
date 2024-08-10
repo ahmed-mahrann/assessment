@@ -18,6 +18,7 @@
         v-for="option in options.option_values"
         :key="option.id"
         class="flex flex-col items-center gap-2"
+        @click="$emit('filterSelect')"
       >
         <common-button
           class="!rounded-full border-[3px] border-grayBg p-4"
@@ -61,6 +62,8 @@ const props = defineProps({
     required: true,
   },
 });
+
+defineEmits(["filterSelect"]);
 
 const isColorExpanded = ref(true);
 

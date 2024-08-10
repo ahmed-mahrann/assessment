@@ -70,6 +70,8 @@ const selectedFilters = defineModel("selectedFilters", {
   type: Array as PropType<SelectedFilter[]>,
 });
 
+const emit = defineEmits(["filterSelect"]);
+
 const router = useRouter();
 
 const minRoutePrice = Number(router.currentRoute.value.query.min_price) || 0;
@@ -101,6 +103,7 @@ const handleChangePrice = useDebounceFn(() => {
     }
   }
   errorMsg.value = "";
+  emit("filterSelect");
 }, 1000);
 
 const error = (type: number, msg: string) => {
