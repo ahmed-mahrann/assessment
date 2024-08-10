@@ -40,17 +40,14 @@ export function objectToQueryString(obj: any) {
 }
 
 export function filtersToQueryObj(filters: SelectedFilter[]) {
-  return filters.reduce(
-    (acc, item) => {
-      if (!acc[item.type]) {
-        acc[item.type] = [];
-      }
-      acc[item.type].push(item.id.toString());
+  return filters.reduce<{ [key: string]: string[] }>((acc, item) => {
+    if (!acc[item.type]) {
+      acc[item.type] = [];
+    }
+    acc[item.type].push(item.id.toString());
 
-      return acc;
-    },
-    {} as { [key: string]: string[] },
-  );
+    return acc;
+  }, {});
 }
 
 export function getSelectedFilters(

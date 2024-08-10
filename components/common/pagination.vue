@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Pagination } from "~/types/api";
+import type { Pagination } from "~/types/base";
 import leftIcon from "~/assets/icons/left-icon.svg";
 import rightIcon from "~/assets/icons/right-icon.svg";
 
@@ -44,8 +44,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-const router = useRouter();
 
 const displayedPages = computed(() => {
   const pages = [];
@@ -69,7 +67,6 @@ const displayedPages = computed(() => {
 
 const navigateToPage = (pageNumber: number) => {
   currentPage.value = pageNumber;
-  router.push(`/?page=${pageNumber}`);
 };
 
 const prevPage = () => {

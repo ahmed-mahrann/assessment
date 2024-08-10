@@ -19,8 +19,9 @@
     />
     <div
       v-show="expand"
-      v-for="(item, index) in filteredList"
+      v-for="item in filteredList"
       class="flex items-center gap-2"
+      @click="$emit('filterSelect')"
     >
       <input
         type="checkbox"
@@ -71,7 +72,7 @@ const props = defineProps({
   },
 });
 
-defineEmits(["expandClicked"]);
+defineEmits(["expandClicked", "filterSelect"]);
 
 const searchValue = ref("");
 const filteredList = ref(props.list);

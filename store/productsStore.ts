@@ -5,11 +5,12 @@ import { parseQueryString, filtersToQueryObj } from "~/utils/common";
 export const useProductsStore = defineStore("products-store", () => {
   const runtimeConfig = useRuntimeConfig();
 
+  const router = useRouter();
+  const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
+
   const products = ref<ProductsResponse | undefined>();
   const loading = ref(false);
   const error = ref(false);
-
-  const router = useRouter();
 
   const api = runtimeConfig.public.api_products_url;
 
@@ -30,10 +31,9 @@ export const useProductsStore = defineStore("products-store", () => {
           .join("&");
 
         const routeQuery = parseQueryString(queryString);
-
         router.replace({
           path: router.currentRoute.value.path,
-          query: routeQuery,
+          query: { page, ...routeQuery },
         });
 
         const { data: res } = await useAsyncData(
@@ -71,6 +71,7 @@ export const useProductsStore = defineStore("products-store", () => {
     products,
     error,
     loading,
+    currentPage,
     fetchProducts,
   };
 });

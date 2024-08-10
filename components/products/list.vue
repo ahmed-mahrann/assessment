@@ -22,15 +22,6 @@
     <common-pagination
       v-model:page="currentPage"
       :listInfo="products.pagination"
-      @change="
-        router.replace({
-          path: router.currentRoute.value.path,
-          query: {
-            ...router.currentRoute.value.query,
-            page: currentPage,
-          },
-        })
-      "
     />
   </div>
 </template>
@@ -44,12 +35,9 @@ import emptyIcon from "~/assets/icons/empty-indicator.svg";
 const productsStore = useProductsStore();
 const filterStore = useFilterStore();
 
-const { products } = storeToRefs(productsStore);
+const { products, currentPage } = storeToRefs(productsStore);
 const { selectedFilters } = storeToRefs(filterStore);
 
-const router = useRouter();
-
-const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
 const loading = ref(false);
 
 watchEffect(async () => {

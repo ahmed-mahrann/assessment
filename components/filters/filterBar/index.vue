@@ -35,7 +35,10 @@
         text="Clear all"
         type="link"
         class="underline"
-        @click="selectedFilters = []"
+        @click="
+          selectedFilters = [];
+          currentPage = 1;
+        "
       />
       <span> {{ products?.data.length }} Item(s) </span>
     </div>
@@ -53,7 +56,7 @@ import filterIcon from "~/assets/icons/filter-icon.svg";
 const filterStore = useFilterStore();
 const productsStore = useProductsStore();
 
-const { products } = storeToRefs(productsStore);
+const { products, currentPage } = storeToRefs(productsStore);
 const { selectedFilters, showFilters } = storeToRefs(filterStore);
 
 const isMenuOpen = ref(false);

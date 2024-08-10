@@ -58,9 +58,12 @@ const isMenuOpen = defineModel("menu", {
 
 const productsStore = useProductsStore();
 const filterStore = useFilterStore();
+
 const { selectedFilters } = storeToRefs(filterStore);
+const { currentPage } = storeToRefs(productsStore);
 
 const clearAllFilters = () => {
   selectedFilters.value = [];
+  currentPage.value = 1;
 };
 </script>
