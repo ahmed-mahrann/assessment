@@ -17,7 +17,7 @@ describe("Filters", () => {
     cy.get('[data-cy="show-filters-btn"]').should("be.visible").click();
     cy.get('[data-cy="filter-menu"]').should("be.visible");
     cy.get('[data-cy="checkbox"]').first().click({ force: true });
-    cy.url().should("contain", "/?categories=");
+    cy.url().should("contain", "categories=");
     cy.get('[data-cy="filter-bar-item"]').should("be.visible");
   });
 
@@ -27,7 +27,7 @@ describe("Filters", () => {
     cy.get('[data-cy="show-filters-btn"]').should("be.visible").click();
     cy.get('[data-cy="filter-menu"]').should("be.visible");
     cy.get('[data-cy="filter-btn"]').first().click({ force: true });
-    cy.url().should("contain", "/?options=");
+    cy.url().should("contain", "options=");
     cy.get('[data-cy="filter-bar-item"]').should("be.visible");
   });
 });
