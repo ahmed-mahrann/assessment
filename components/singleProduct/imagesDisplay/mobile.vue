@@ -32,5 +32,6 @@ defineProps({
   },
 });
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
+const { productData: product } = storeToRefs(productStore);
 </script>

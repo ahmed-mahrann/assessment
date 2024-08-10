@@ -18,15 +18,16 @@
 import { useProductStore } from "~/store/productStore";
 import { useProductVariantStore } from "~/store/productVariantStore";
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
+const productVariantStore = useProductVariantStore();
+
+const { productData: product } = storeToRefs(productStore);
 
 const currentSlideIndex = ref(0);
 
-const productVariantStore = useProductVariantStore();
-
 const slides = computed(() => {
-  const mainImg = product?.featured_image;
-  const productMedia = product?.media;
+  const mainImg = product.value?.featured_image;
+  const productMedia = product.value?.media;
 
   const variantMedia = productVariantStore.selectedProductVariant?.media;
 

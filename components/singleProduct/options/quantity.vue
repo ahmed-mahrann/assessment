@@ -35,7 +35,8 @@ import { useProductStore } from "~/store/productStore";
 import minusIcon from "~/assets/icons/minus.svg";
 import plusIcon from "~/assets/icons/plus.svg";
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
+const { productData: product } = storeToRefs(productStore);
 
 const quantity = ref(1);
 

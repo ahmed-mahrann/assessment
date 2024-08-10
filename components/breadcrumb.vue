@@ -18,5 +18,6 @@
 <script setup lang="ts">
 import { useProductStore } from "~/store/productStore";
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
+const { productData: product } = storeToRefs(productStore);
 </script>

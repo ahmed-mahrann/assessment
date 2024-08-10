@@ -30,7 +30,8 @@ import minusIcon from "~/assets/icons/minus.svg";
 import plusIcon from "~/assets/icons/plus.svg";
 import { useProductStore } from "~/store/productStore";
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
+const { productData: product } = storeToRefs(productStore);
 
 const expand = ref(false);
 </script>

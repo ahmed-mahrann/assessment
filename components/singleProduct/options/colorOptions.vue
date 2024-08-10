@@ -12,7 +12,7 @@
         :class="{ 'outline outline-2': selectedColor.id === option.id }"
         type="link"
         :style="{ backgroundColor: option.value }"
-        :disable="isOptionValueDisabled(option.id)"
+        :disable="productVariantStore.isOptionValueDisabled(option.id)"
         @clicked="handleSelectColor(option)"
       />
     </div>
@@ -37,7 +37,7 @@ const emit = defineEmits<{
   (e: "selectColor", option: OptionValue, id: string): void;
 }>();
 
-const { isOptionValueDisabled } = useProductVariantStore();
+const productVariantStore = useProductVariantStore();
 
 const selectedColor = ref<OptionValue>(props.initialSelected);
 

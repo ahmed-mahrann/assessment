@@ -69,13 +69,15 @@ import wishlistIcon from "~/assets/icons/wishlistColored.svg";
 import deliveryIcon from "~/assets/icons/delivery.svg";
 import returnBagIcon from "~/assets/icons/bag.svg";
 
-const { productData: product } = useProductStore();
+const productStore = useProductStore();
 const productVariantStore = useProductVariantStore();
+
+const { productData: product } = storeToRefs(productStore);
 
 const getOptions = (type: string) => {
   return {
-    options: product?.options?.find((option) => option.type === type),
-    initialValue: product?.default_variant?.option_values?.find(
+    options: product.value?.options?.find((option) => option.type === type),
+    initialValue: product.value?.default_variant?.option_values?.find(
       (option) => option.type === type,
     ),
   };

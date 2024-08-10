@@ -16,13 +16,14 @@
 import { useProductStore } from "~/store/productStore";
 import { useProductVariantStore } from "~/store/productVariantStore";
 
-const { productData: product, error } = useProductStore();
+const productStore = useProductStore();
+const { productData: product, error } = storeToRefs(productStore);
 
 const { clearSelectedOptions, fetchProductVariant } = useProductVariantStore();
 
 clearSelectedOptions();
 
-if (product?.default_variant) {
+if (product.value?.default_variant) {
   await fetchProductVariant();
 }
 </script>
