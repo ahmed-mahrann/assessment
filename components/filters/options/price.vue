@@ -22,12 +22,16 @@
         @change="handleChangePrice"
         @error="error"
       />
-      <span style="color: red; margin-left: 20px">{{ errorMsg }}</span>
       <div class="flex w-full justify-center gap-3">
         <div class="relative text-lg">
           <input
-            v-model="priceValue[0]"
-            class="w-1/3 rounded-md border border-subtitle bg-grayBg py-1 text-center lg:w-36"
+            :value="priceValue[0]"
+            type="number"
+            class="w-36 rounded-md border border-subtitle bg-grayBg py-1 text-center"
+            @input="
+              (e: any) => (priceValue = [e.target.value || 0, priceValue[1]])
+            "
+            @change="handleChangePrice"
           />
           <span class="absolute right-0 top-1/2 -translate-y-1/2 pr-2">
             EGP
@@ -35,15 +39,20 @@
         </div>
         <div class="relative text-lg">
           <input
-            v-model="priceValue[1]"
-            class="w-1/3 rounded-md border border-subtitle bg-grayBg py-1 text-center lg:w-36"
+            :value="priceValue[1]"
+            type="number"
+            class="w-36 rounded-md border border-subtitle bg-grayBg py-1 text-center"
+            @input="
+              (e: any) => (priceValue = [priceValue[0], e.target.value || 0])
+            "
+            @change="handleChangePrice"
           />
           <span class="absolute right-0 top-1/2 -translate-y-1/2 pr-2">
             EGP
           </span>
         </div>
       </div>
-      <span class="text-red-500">{{ errorMsg }}</span>
+      <span v-if="errorMsg !== ''" class="text-red-500">{{ errorMsg }}</span>
     </client-only>
   </div>
   <span class="border-t" />
