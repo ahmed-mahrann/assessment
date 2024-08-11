@@ -31,10 +31,12 @@ export const useProductsStore = defineStore("products-store", () => {
           .join("&");
 
         const routeQuery = parseQueryString(queryString);
-        router.replace({
-          path: router.currentRoute.value.path,
-          query: { page, ...routeQuery },
-        });
+        if (router.currentRoute.value.path === "/") {
+          router.replace({
+            path: router.currentRoute.value.path,
+            query: { page, ...routeQuery },
+          });
+        }
 
         const { data: res } = await useAsyncData(
           `products-${page}-${queryString}`,

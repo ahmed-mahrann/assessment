@@ -1,5 +1,5 @@
 <template>
-  <div v-if="products" class="flex grow flex-col gap-4 lg:pt-20">
+  <div v-if="products" class="flex grow flex-col gap-4">
     <filters-filter-bar />
 
     <div v-if="!loading" class="flex flex-wrap justify-center gap-5">
@@ -34,6 +34,7 @@ import emptyIcon from "~/assets/icons/empty-indicator.svg";
 
 const productsStore = useProductsStore();
 const filterStore = useFilterStore();
+const router = useRouter();
 
 const { products, currentPage } = storeToRefs(productsStore);
 const { selectedFilters } = storeToRefs(filterStore);
@@ -41,8 +42,10 @@ const { selectedFilters } = storeToRefs(filterStore);
 const loading = ref(false);
 
 watchEffect(async () => {
-  loading.value = true;
-  await productsStore.fetchProducts(selectedFilters.value, currentPage.value);
-  loading.value = false;
+  if (router.currentRoute.value.path === "/") {
+    loading.value = true;
+    await productsStore.fetchProducts(selectedFilters.value, currentPage.value);
+    loading.value = false;
+  }
 });
 </script>

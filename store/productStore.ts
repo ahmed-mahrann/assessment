@@ -3,6 +3,8 @@ import type { ProductResponse, ProductRecord } from "~/types/api";
 
 export const useProductStore = defineStore("product-store", () => {
   const runtimeConfig = useRuntimeConfig();
+  const router = useRouter();
+
   const productData = ref<ProductRecord | undefined>();
   const loading = ref(false);
   const error = ref(false);
@@ -11,10 +13,11 @@ export const useProductStore = defineStore("product-store", () => {
 
   const fetchProduct = async () => {
     loading.value = true;
+    const id = router.currentRoute.value.path.split("/")[2];
 
     try {
       const { data: res } = await useAsyncData("product", () =>
-        $fetch<ProductResponse>(api),
+        $fetch<ProductResponse>(`${api}${id}?include=categories`),
       );
       if (!res.value?.data) {
         console.error("No data returned");

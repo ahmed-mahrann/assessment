@@ -1,5 +1,8 @@
 <template>
-  <nuxt-link to="/product" class="flex w-64 flex-col items-start">
+  <nuxt-link
+    :to="`/product/${brand.id}`"
+    class="flex w-64 flex-col items-start"
+  >
     <div class="relative">
       <img
         :src="brand.featured_image"

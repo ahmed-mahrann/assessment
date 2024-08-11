@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ssr: true,
   runtimeConfig: {
     public: {
-      api_url: process.env.API_URL,
+      api_url: process.env.API_SINGLE_PRODUCT_URL,
       api_variant_url: process.env.API_VARIANT_URL,
       api_products_url: process.env.API_PRODUCTS_URL,
       api_categories_url: process.env.API_CATEGORIES_URL,

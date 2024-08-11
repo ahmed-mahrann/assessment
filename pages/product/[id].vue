@@ -23,6 +23,8 @@ const { clearSelectedOptions, fetchProductVariant } = useProductVariantStore();
 
 clearSelectedOptions();
 
+await productStore.fetchProduct();
+
 if (product.value?.default_variant) {
   await fetchProductVariant();
 }

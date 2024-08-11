@@ -5,6 +5,7 @@ export const useProductVariantStore = defineStore(
   "product-variant-store",
   () => {
     const runtimeConfig = useRuntimeConfig();
+    const router = useRouter();
 
     const productVariantData = ref<ProductVariantData>();
     const selectedOptions = ref<{ [key: string]: number }>({});
@@ -21,13 +22,14 @@ export const useProductVariantStore = defineStore(
 
     const fetchProductVariant = async (optionValueIds?: number[]) => {
       isLoading.value = true;
+      const id = router.currentRoute.value.path.split("/")[2];
       const filterQuery = optionValueIds
         ? `?filter[options]=${optionValueIds.join(",")}`
         : "";
 
       try {
         const { data: res } = await useAsyncData("product-variant", () =>
-          $fetch<ProductVariantResponse>(`${api}${filterQuery}`),
+          $fetch<ProductVariantResponse>(`${api}${id}${filterQuery}`),
         );
 
         isLoading.value = false;
