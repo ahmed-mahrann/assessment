@@ -3,7 +3,11 @@
     <nuxt-link to="/"> <common-button text="Home" type="link" /></nuxt-link>
     <span class="text-subtitle">/</span>
     <common-button
-      :text="product?.categories?.[0].title || 'Products'"
+      :text="
+        router.currentRoute.value.path === '/'
+          ? 'Products'
+          : product?.categories?.[0].title
+      "
       type="link"
     />
     <span
