@@ -1,5 +1,5 @@
 <template>
-  <div v-show="showFilters" class="hidden flex-col gap-14 pl-9 lg:flex">
+  <div v-show="showFilters" class="hidden flex-col gap-14 lg:flex">
     <div class="flex flex-col gap-5">
       <filters-category-filter />
       <filters-options />
